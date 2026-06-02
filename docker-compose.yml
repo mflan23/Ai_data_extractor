@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o}
+      - CORS_ORIGINS=http://localhost:5173,http://localhost:3000
+    volumes:
+      - uploads_data:/app/uploads
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  uploads_data:
