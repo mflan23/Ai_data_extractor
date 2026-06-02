@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+python-multipart
+google-api-python-client
+python-docx
+pdfplumber
+python-pptx
+python-dateutil
